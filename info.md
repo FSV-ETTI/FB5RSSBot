@@ -1,9 +1,7 @@
 # FB5 RSS Telegram Bot
-______
 Repositroy of FB5RSSTelegramBot by the Student Council of the Technical University Lemgo
 
 # Overview
-______
 This Bot uses the Ruby Telegram Bot API wrapper telegram-bot-ruby by atipugin.
 Link to repo of wrapper: https://github.com/atipugin/telegram-bot-ruby
 
