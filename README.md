@@ -1,5 +1,5 @@
 # FB5 RSS Telegram Bot
-Repositroy of FB5RSSTelegramBot by the Student Council of the Technical University Lemgo
+Repositroy of FB5RSSTelegramBot by the Student Council of the Technical University OWL
 
 # Overview
 This Bot uses the Ruby Telegram Bot API wrapper telegram-bot-ruby by atipugin.
