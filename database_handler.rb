@@ -54,6 +54,13 @@ class DatabaseHandler
     db.execute "INSERT INTO #{table} VALUES(#{chat_id})"
   end
 
+  # Delete a user from Database if the user blocked the Bot.
+  def db_delete_blocked_user(chat_id, db)
+    @string_collection.keys.each do |table|
+      db.execute "DELETE FROM #{table} WHERE user=#{chat_id}"
+    end
+  end
+
   # Check if a chat id is already in database.
   def user_known(message, db)
     index_key = @string_collection.keyboard_strings.index(@utilities.reduce_message(message.text))

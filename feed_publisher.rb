@@ -6,6 +6,7 @@ require_relative 'string_collection.rb'
 require_relative 'bot_handler.rb'
 require_relative 'rss_reader.rb'
 require_relative 'utilities.rb'
+require_relative 'database_handler.rb'
 
 # Handles the sending message process if a new message is in RSS-Feed.
 class FeedPublisher
@@ -14,6 +15,7 @@ class FeedPublisher
     @bot_handler = BotHandler.new
     @rss_reader = RSSReader.new
     @utilities = Utilities.new
+    @database_handler = DatabaseHandler.new
   end
 
   # Returns the URL in which a new message was found.
@@ -46,8 +48,14 @@ class FeedPublisher
     stm = db.prepare var
     rs = stm.execute
     rs.each do |chat_id|
-      @bot_handler.title_message(chat_id.to_s, url, bot)
-      @bot_handler.item_message(chat_id.to_s, url, bot)
+      begin
+        @bot_handler.title_message(chat_id.to_s, url, bot)
+        @bot_handler.item_message(chat_id.to_s, url, bot)
+      rescue Telegram::Bot::Exceptions::ResponseError
+        puts @utilities.to_str(chat_id.to_s)
+        @database_handler.db_delete_blocked_user(@utilities.to_str(chat_id.to_s), db)
+        next
+      end
     end
   end
 end
