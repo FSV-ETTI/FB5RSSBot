@@ -39,7 +39,7 @@ The Keys are the Names of the RSS Feeds written in CamelCase. You can inspect th
 
 ### Modifications
 
-To change the RSS Feeds,you'll need to change the strings in the string_collection.rb class.
+To change the RSS Feeds, you'll need to change the strings in the string_collection.rb class.
 Additionally you'll need to change the constant ALL_FEED in main.rb which is used to check if a new message was posted in the feed.
 
 ```ALL_FEED = 'CUSTOM_URL'.freeze```
