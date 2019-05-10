@@ -22,7 +22,8 @@ Structure of SQL Database:
 In the SQL Database a table will be created for every Feed in the StringCollection class.
 The Keys are the Names of the RSS Feeds written in CamelCase.
 
-## Commands
+
+# Commands
 
 ### /start
 
