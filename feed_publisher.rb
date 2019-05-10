@@ -52,7 +52,6 @@ class FeedPublisher
         @bot_handler.title_message(chat_id.to_s, url, bot)
         @bot_handler.item_message(chat_id.to_s, url, bot)
       rescue Telegram::Bot::Exceptions::ResponseError
-        puts @utilities.to_str(chat_id.to_s)
         @database_handler.db_delete_blocked_user(@utilities.to_str(chat_id.to_s), db)
         next
       end
