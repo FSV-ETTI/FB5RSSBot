@@ -24,3 +24,13 @@ The Keys are the Names of the RSS Feeds written in CamelCase.
 
 ### Commands
 _______
+
+##### /start
+
+Applies the markup on the keyboard.
+
+##### /stop
+
+Removes the custom keyboard.
+
+
