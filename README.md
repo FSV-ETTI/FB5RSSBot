@@ -27,7 +27,7 @@ The Bot is using two threads.
 
 The first thread is used to handle messages sent by the user and manages the SQL Database.
 When a user sends a Message to subscribe or unsubscribe a feed, first an algorithm will check whether the user already exists in the Database or if he is not listed yet.
-After the check, the custom keyboard, which will be activated once a user uses the /start command, will be changed according to the current subscription status.
+After the check the custom keyboard, which will be activated once a user uses the /start command, will be changed according to the current subscription status.
 
 ### Thread 2
 
