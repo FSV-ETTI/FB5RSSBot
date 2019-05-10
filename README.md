@@ -3,7 +3,7 @@ Repositroy of FB5RSSTelegramBot by the Student Council of the Technical Universi
 
 # Overview
 This Bot is written for public usage and can handle multiple user requests.
-When a User starts the Bot, a custom keyboard will be send to the user which displays the available RSS Feeds.
+When a user starts the Bot, a custom keyboard will be send to the user which displays the available RSS Feeds.
 Once a user subscribes to a Feed, his user id will be written in an SQL Database.
 Using the Database the Bot will then distribute updates to the users in it.
 
