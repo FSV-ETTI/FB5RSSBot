@@ -31,12 +31,44 @@ After the check the custom keyboard, which will be activated once a user uses th
 
 ### Thread 2
 
-In the second thread, every 10 seconds an algorithms will check if a new message was posted in the "Alle Nachrichten" feed. If a new message was posted, the message will be distributed to every user in the according SQL table.
+In the second thread, every 10 seconds an algorithm will check if a new message was posted in the "Alle Nachrichten" feed. If a new message was posted, the message will be distributed to every user in the according SQL table.
 
 Structure of SQL Database:
 In the SQL Database a table will be created for every Feed in the StringCollection class.
-The Keys are the Names of the RSS Feeds written in CamelCase.
+The Keys are the Names of the RSS Feeds written in CamelCase. You can inspect the keys in the Keys method.
 
+### Modifications
+
+To change the RSS Feeds,you'll need to change the strings in the string_collection.rb class.
+Additionally you'll need to change the constant ALL_FEED in main.rb which is used to check if a new message was posted in the feed.
+
+```ALL_FEED = 'CUSTOM_URL'.freeze```
+
+
+```
+  def keyboard_strings
+    %w[
+      Strings which will be displayed on the custom keyboard.
+    ]
+  end
+```
+
+```
+  def monitors
+    %w[
+      URL(s) of the monitor(s) the Bot checks for updates.
+    ]
+  end
+```
+
+```
+  def keys
+    %w[
+      This Array is used to create the tables in the database and some comparisons.
+      To add a monitor just add a string written in CamelCase here.
+    ]
+  end
+```
 
 # Commands
 
