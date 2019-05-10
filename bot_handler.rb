@@ -16,7 +16,7 @@ class BotHandler
   end
 
   # Handle strings which are not found in keyboard. One can easily add more
-  # options here.
+  # commands here.
   def handle_commands(message, bot)
     case message.text
     when '/start'
@@ -24,7 +24,7 @@ class BotHandler
     when '/stop'
       close_keyboard(bot, message)
     else
-      NIL
+      NIL # NIL is deprecated.
     end
   end
 
@@ -35,9 +35,9 @@ class BotHandler
     infomonitore = update_keyboard(message, db)
     message_text = @utilities.reduce_message(message.text)
     bot.api.send_message(
-        chat_id: message.chat.id,
-        text: "Das Abonnement für den Feed #{message_text} wurde erfolgreich beendet.",
-        reply_markup: infomonitore
+      chat_id: message.chat.id,
+      text: "Das Abonnement für den Feed #{message_text} wurde erfolgreich beendet.",
+      reply_markup: infomonitore
     )
   end
 
@@ -48,9 +48,9 @@ class BotHandler
     message_text = @utilities.reduce_message(message.text)
     infomonitore = update_keyboard(message, db)
     bot.api.send_message(
-        chat_id: message.chat.id,
-        text: "#{message_text} feed wurde erfolgreich abonniert",
-        reply_markup: infomonitore
+      chat_id: message.chat.id,
+      text: "#{message_text} feed wurde erfolgreich abonniert",
+      reply_markup: infomonitore
     )
   end
 
@@ -69,9 +69,9 @@ class BotHandler
     return if chat_id.nil?
 
     bot.api.send_message(
-        chat_id: chat_id, text: @rss_reader.read_item_date(url) +
-        "\n" + @rss_reader.read_item_title(url) +
-        "\n" + @rss_reader.read_item_description(url)
+      chat_id: chat_id, text: @rss_reader.read_item_date(url) +
+      "\n" + @rss_reader.read_item_title(url) +
+      "\n" + @rss_reader.read_item_description(url)
     )
   end
 
@@ -79,20 +79,20 @@ class BotHandler
   def open_keyboard(bot, message)
     text = 'Bitte wählen sie einen Infomonitor.'
     infomonitore = Telegram::Bot::Types::ReplyKeyboardMarkup.new(
-        keyboard: @string_collection.keyboard_strings
+      keyboard: @string_collection.keyboard_strings
     )
     bot.api.send_message(
-        chat_id: message.chat.id, text: text, reply_markup: infomonitore
+      chat_id: message.chat.id, text: text, reply_markup: infomonitore
     )
   end
 
   # Close the keyboard.
   def close_keyboard(bot, message)
     infomonitore = Telegram::Bot::Types::ReplyKeyboardRemove.new(
-        remove_keyboard: true
+      remove_keyboard: true
     )
     bot.api.send_message(
-        chat_id: message.chat.id, text: 'Tüdelü', reply_markup: infomonitore
+      chat_id: message.chat.id, text: 'Tüdelü', reply_markup: infomonitore
     )
   end
 
@@ -105,7 +105,7 @@ class BotHandler
       end
     end
     Telegram::Bot::Types::ReplyKeyboardMarkup.new(
-        keyboard: keyboard_strings
+      keyboard: keyboard_strings
     )
   end
 

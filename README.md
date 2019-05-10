@@ -1,12 +1,27 @@
 # FB5 RSS Telegram Bot
-Repositroy of FB5RSSTelegramBot by the Student Council of the Technical University OWL
+Repositroy of FB5RSSTelegramBot by the Student Council of the Technical University OWL.
 
 # Overview
-This Bot uses the Ruby Telegram Bot API wrapper telegram-bot-ruby by atipugin.
+This Bot uses the Ruby Telegram Bot API wrapper telegram-bot-ruby by atipugin and the SQLite ruby API.
+
 Link to repo of wrapper: https://github.com/atipugin/telegram-bot-ruby
 
+### Installation
 
-The Bot uses two threads and an SQL Database.
+To use the Bot you need to install two gems:
+
+* telegram-bot-ruby
+
+```$ gem install telegram-bot-ruby```
+
+* SQLite 3
+
+```$ gem install sqlite3```
+
+
+# Implementation
+
+The Bot is using two threads.
 
 ### Thread 1
 

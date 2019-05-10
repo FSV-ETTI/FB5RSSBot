@@ -7,12 +7,6 @@ require_relative 'bot_handler.rb'
 require_relative 'database_handler.rb'
 require_relative 'feed_publisher.rb'
 
-
-# TODO, Implement a subscribe to all method.
-# Add chat_id to every table in database to do that.
-# TODO, write exception for TCP/IP Timeout.
-# When the bot looses its internet connection, let the code sleep for a minute or two.
-
 # Constant is only used for comparison methods.
 ALL_FEED = 'https://www.th-owl.de/fb5/fb5.rss'.freeze
 TOKEN = '820968652:AAGtkxxNAr-Vvjz2l-292KHGBkj-QOmvmAc'.freeze

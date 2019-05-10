@@ -2,11 +2,11 @@
 # Piet Lipke
 # 2019
 
-require_relative 'string_collection.rb'
-require_relative 'bot_handler.rb'
-require_relative 'rss_reader.rb'
 require_relative 'utilities.rb'
+require_relative 'rss_reader.rb'
+require_relative 'bot_handler.rb'
 require_relative 'database_handler.rb'
+require_relative 'string_collection.rb'
 
 # Handles the sending message process if a new message is in RSS-Feed.
 class FeedPublisher
