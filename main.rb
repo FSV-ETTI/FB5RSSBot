@@ -10,11 +10,6 @@ require_relative 'feed_publisher.rb'
 
 # TODO, Implement a subscribe to all method.
 # Add chat_id to every table in database to do that.
-# TODO, write last date in database instead of global variable.
-# The $last_date variable was just a temporary fix. Not very elegant.
-# TODO, write exception for blocked users.
-# When a user blocks the bot, an exception needs to be raised and the user needs to be
-# deleted from the database.
 # TODO, write exception for TCP/IP Timeout.
 # When the bot looses its internet connection, let the code sleep for a minute or two.
 
