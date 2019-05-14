@@ -17,12 +17,18 @@ class BotHandler
 
   # Handle strings which are not found in keyboard. One can easily add more
   # commands here.
-  def handle_commands(message, bot)
+  def handle_commands(message, bot, db, message_trigger)
+    if message_trigger
+      send_message(bot, message, db)
+      return false
+    end
     case message.text
     when '/start'
       open_keyboard(bot, message)
     when '/stop'
       close_keyboard(bot, message)
+    when '/MessageAll'
+      return receive_message(bot, message) if message.chat.id < 100_000_000
     else
       NIL # NIL is deprecated.
     end
@@ -94,6 +100,36 @@ class BotHandler
     bot.api.send_message(
       chat_id: message.chat.id, text: 'Tüdelü', reply_markup: infomonitore
     )
+  end
+
+  def select_users(db)
+    chat_ids = []
+    @string_collection.keys.each do |index_key|
+      var = "SELECT * FROM #{index_key}"
+      stm = db.prepare var
+      rs = stm.execute
+      rs.each do |existing_user|
+        chat_ids << existing_user[0]
+      end
+      chat_ids = chat_ids.uniq
+    end
+    chat_ids
+  end
+
+  def send_message(bot, message, db)
+    user_list = select_users(db)
+    user_list.each do |user|
+      bot.api.send_message(
+        chat_id: user, text: message.text.to_s
+      )
+    end
+  end
+
+  def receive_message(bot, message)
+    bot.api.send_message(
+      chat_id: message.chat.id, text: 'Bitte geben sie eine Nachricht zum verteilen ein.'
+    )
+    true
   end
 
   # Returns a new markup version of the keyboard with updated buttons.

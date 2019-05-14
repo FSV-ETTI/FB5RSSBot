@@ -9,11 +9,12 @@ require_relative 'feed_publisher.rb'
 
 # Constant is only used for comparison methods.
 ALL_FEED = 'https://www.th-owl.de/fb5/fb5.rss'.freeze
-TOKEN = '820968652:AAGtkxxNAr-Vvjz2l-292KHGBkj-QOmvmAc'.freeze
+TOKEN = '789284416:AAGlhE8pycY_7njGVwituHsSdU39vMAGIJ0'.freeze
 
 # Main class for the FB5RSS bot.
 class FB5RSSBot
   def initialize
+    @message_trigger = false
     @bot_handler = BotHandler.new
     @feed_publisher = FeedPublisher.new
     @database_handler = DatabaseHandler.new
@@ -34,7 +35,7 @@ class FB5RSSBot
 
   # Handle strings which are not in keyboard.
   def command_handler(message)
-    @bot_handler.handle_commands(message, @bot)
+    @message_trigger = @bot_handler.handle_commands(message, @bot, @db, @message_trigger)
   end
 
   # Update the database.
