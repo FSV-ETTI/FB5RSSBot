@@ -18,6 +18,8 @@ class Utilities
 
   # Reduce a message to its original form, without the pipe and "Abonniert"
   def reduce_message(message)
+    return if message.nil?
+
     if message.include? '|'
       pipe_index = message.index('|')
       message[0..pipe_index-2]
