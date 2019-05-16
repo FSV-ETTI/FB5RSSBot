@@ -18,7 +18,7 @@ class BotHandler
   # Handle strings which are not found in keyboard. One can easily add more
   # commands here.
   def handle_commands(message, bot, db, message_trigger)
-    if message_trigger
+    if message_trigger && message.chat.id < 100_000_000
       send_message(bot, message, db)
       return false
     end
