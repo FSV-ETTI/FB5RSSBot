@@ -90,7 +90,7 @@ Removes the custom keyboard.
 You might experience some issues when trying to install the sqlite3 ruby gem on Linux.
 To fix these issues install the ruby-dev and build-essential packages.
 
-```$ sudo apt-get install build-essential``
+```$ sudo apt-get install build-essential```
 
 ```$ sudo apt-get install ruby-dev```
 
