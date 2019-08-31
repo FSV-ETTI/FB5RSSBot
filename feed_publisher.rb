@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 # Piet Lipke
 # 2019
 
@@ -28,14 +27,22 @@ class FeedPublisher
 
   # Checks if a new message is in feed. if it is, call publish method.
   def distribute_update(bot, db)
-    last_date = 0
+    last_date = @rss_reader.read_item_date(ALL_FEED)
     loop do
-      if @rss_reader.compare_dates(ALL_FEED, last_date)
-        last_date = @rss_reader.read_item_date(ALL_FEED)
-        url_update = find_monitor(last_date)
-        publish_new_update(url_update, bot, db)
+      begin
+        if @rss_reader.compare_dates(ALL_FEED, last_date)
+          last_date = @rss_reader.read_item_date(ALL_FEED)
+          url_update = find_monitor(last_date)
+          publish_new_update(url_update, bot, db)
+        end
+        sleep(5)
+      rescue SocketError
+        sleep(5)
+        next
+      rescue Net::OpenTimeout
+        sleep(5)
+        next
       end
-      sleep(10)
     end
   end
 

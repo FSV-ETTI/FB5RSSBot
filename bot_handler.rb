@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 # Piet Lipke
 # 2019
 
@@ -30,7 +29,7 @@ class BotHandler
     when '/MessageAll'
       return receive_message(bot, message) if message.chat.id < 100_000_000
     else
-      NIL # NIL is deprecated.
+      nil # NIL is deprecated.
     end
   end
 
@@ -60,12 +59,10 @@ class BotHandler
     )
   end
 
-  # push the latest message title of a monitor to a user.
+  # push the latest message title of a monitor to a user.d
   def title_message(chat_id, url, bot)
     chat_id = @utilities.to_str(chat_id)
     return if chat_id.nil?
-
-    bot.api.send_message(chat_id: chat_id, text: 'Lade Feed..')
     bot.api.send_message(chat_id: chat_id, text: @rss_reader.read_title(url))
   end
 
@@ -73,10 +70,9 @@ class BotHandler
   def item_message(chat_id, url, bot)
     chat_id = @utilities.to_str(chat_id)
     return if chat_id.nil?
-
     bot.api.send_message(
-      chat_id: chat_id, text: @rss_reader.read_item_date(url) +
-      "\n" + @rss_reader.read_item_title(url) +
+      chat_id: chat_id, text:
+      @rss_reader.read_item_title(url) +
       "\n" + @rss_reader.read_item_description(url)
     )
   end

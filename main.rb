@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 # Piet Lipke
 # 2019
 # Telegram FB5 Bot.
@@ -21,10 +20,18 @@ class FB5RSSBot
     @db = SQLite3::Database.open 'users.db'
     @database_handler.create_tables(@db)
     Thread.new(&method(:publish_updates))
-    Telegram::Bot::Client.run(TOKEN) do |bot|
-      @bot = bot
-      bot.listen(&method(:start_bot))
+    begin
+      start_bot_connection
+    rescue Faraday::ConnectionFailed
+      retry
     end
+  end
+
+  def start_bot_connection
+        Telegram::Bot::Client.run(TOKEN) do |bot|
+        @bot = bot
+        bot.listen(&method(:start_bot))
+      end
   end
 
   # Start the bot.

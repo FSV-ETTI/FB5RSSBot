@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 # Piet Lipke
 # 2019
 
