@@ -31,15 +31,19 @@ class FeedPublisher
     loop do
       begin
         if @rss_reader.compare_dates(ALL_FEED, last_date)
-          last_date = @rss_reader.read_item_date(ALL_FEED)
+          # url_update is used to find the url in which the last message was posted
           url_update = find_monitor(last_date)
           publish_new_update(url_update, bot, db)
+          last_date = @rss_reader.read_item_date(ALL_FEED)
         end
         sleep(5)
       rescue SocketError
         sleep(5)
         next
       rescue Net::OpenTimeout
+        sleep(5)
+        next
+      rescue Errno::ECONNRESET
         sleep(5)
         next
       end

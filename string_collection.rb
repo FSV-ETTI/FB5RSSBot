@@ -6,6 +6,7 @@ class StringCollection
   # Keyboard buttons.
   def keyboard_strings
     %w[
+      Alle\ Nachrichten
       Dekanat
       Artificial\ Intelligence\ in\ Automation
       Bauelemente\ und\ Hardware-Design
@@ -23,13 +24,13 @@ class StringCollection
       Optical\ Engineering
       Simulation\ technischer\ Systeme
       Info\ der\ Fachschaft
-      Alle\ Nachrichten
     ]
   end
 
   # Array containing all RSS urls.
   def monitors
     %w[
+      https://www.th-owl.de/fb5/fb5.rss
       https://www.th-owl.de/fb5/fb5-dek-infos.rss
       https://www.th-owl.de/fb5/fb5-es-infos.rss
       https://www.th-owl.de/fb5/fb5-hd-infos.rss
@@ -47,13 +48,13 @@ class StringCollection
       https://www.th-owl.de/fb5/fb5-oe-infos.rss
       https://www.th-owl.de/fb5/fb5-simts-infos.rss
       https://www.th-owl.de/fb5/fb5-fachschaft-infos.rss
-      https://www.th-owl.de/fb5/fb5.rss
     ]
   end
 
   # Array containing the keys for database.
   def keys
     %w[
+      AlleNachrichten
       Dekanat
       ArtificialIntelligenceInAutomation
       BauelementeUndHardwareDesign
@@ -71,7 +72,6 @@ class StringCollection
       OpticalEngineering
       SimulationTechnischerSysteme
       InfoDerFachschaft
-      AlleNachrichten
     ]
   end
 
@@ -79,6 +79,8 @@ class StringCollection
   # Assignment branch is pretty high if replaced by method references.
   def hash_monitors
     Hash[
+        'https://www.th-owl.de/fb5/fb5.rss' =>
+            'AlleNachrichten',
         'https://www.th-owl.de/fb5/fb5-dek-infos.rss' =>
             'Dekanat',
         'https://www.th-owl.de/fb5/fb5-es-infos.rss' =>
@@ -112,9 +114,7 @@ class StringCollection
         'https://www.th-owl.de/fb5/fb5-simts-infos.rss' =>
             'SimulationTechnischerSysteme',
         'https://www.th-owl.de/fb5/fb5-fachschaft-infos.rss' =>
-            'InfoDerFachschaft',
-        'https://www.th-owl.de/fb5/fb5.rss' =>
-            'AlleNachrichten'
+            'InfoDerFachschaft'
     ]
   end
 end
