@@ -20,7 +20,7 @@ class DatabaseHandler
 
   # Create tables in database.
   def create_tables(db)
-    StringCollection.new.keys.each do |key|
+    @string_collection.keys.each do |key|
       db.execute "CREATE TABLE IF NOT EXISTS #{key}(user INT)"
     end
   end
@@ -36,8 +36,23 @@ class DatabaseHandler
       db_delete_user(@string_collection.keys[index_message], message, db)
       @bot_handler.unsubscribed_message(message, bot, db)
     else
-      db_insert_user(@string_collection.keys[index_message], message, db)
-      @bot_handler.subscribed_message(message, bot, db)
+      if index_message == 0
+        db_delete_users(message, db)
+        db_insert_user(@string_collection.keys[0], message, db)
+        @bot_handler.subscribed_message(message, bot, db, false)
+      else
+        db_insert_user(@string_collection.keys[index_message], message, db)
+        @bot_handler.subscribed_message(message, bot, db)
+      end
+    end
+  end
+
+  # Something
+  def db_delete_users(message, db)
+    chat_id = message.chat.id
+    for key in 1..17 do
+      table = @string_collection.keys[key]
+      db.execute "DELETE FROM #{table} WHERE user=#{chat_id}"
     end
   end
 

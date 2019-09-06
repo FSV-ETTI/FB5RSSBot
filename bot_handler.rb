@@ -47,11 +47,17 @@ class BotHandler
   end
 
   # Confirmation message.
-  def subscribed_message(message, bot, db)
+  def subscribed_message(message, bot, db, all_trigger = true)
     return unless @string_collection.keyboard_strings.include? @utilities.reduce_message(message.text)
 
     message_text = @utilities.reduce_message(message.text)
-    infomonitore = update_keyboard(message, db)
+    if all_trigger
+      infomonitore = update_keyboard(message, db)
+    else
+      infomonitore = Telegram::Bot::Types::ReplyKeyboardMarkup.new(
+        keyboard: @string_collection.keyboard_string
+      )
+    end
     bot.api.send_message(
       chat_id: message.chat.id,
       text: "#{message_text} feed wurde erfolgreich abonniert",
@@ -63,6 +69,7 @@ class BotHandler
   def title_message(chat_id, url, bot)
     chat_id = @utilities.to_str(chat_id)
     return if chat_id.nil?
+
     bot.api.send_message(chat_id: chat_id, text: @rss_reader.read_title(url))
   end
 
@@ -70,6 +77,7 @@ class BotHandler
   def item_message(chat_id, url, bot)
     chat_id = @utilities.to_str(chat_id)
     return if chat_id.nil?
+
     bot.api.send_message(
       chat_id: chat_id, text:
       @rss_reader.read_item_title(url) +

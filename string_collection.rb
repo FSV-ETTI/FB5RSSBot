@@ -4,6 +4,12 @@
 # Contains some strings and stuff.
 class StringCollection
   # Keyboard buttons.
+  def keyboard_string
+    %w[
+        Alle\ Nachrichten\ |\ Abonniert
+    ]
+  end
+
   def keyboard_strings
     %w[
       Alle\ Nachrichten

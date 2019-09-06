@@ -21,8 +21,10 @@ class FeedPublisher
   def find_monitor(date)
     urls = @string_collection.monitors
     urls.each do |url|
+      next if url == @string_collection.monitors[0]
       return url if date == @rss_reader.read_item_date(url)
     end
+    return @string_collection.monitors[0]
   end
 
   # Checks if a new message is in feed. if it is, call publish method.
@@ -39,11 +41,14 @@ class FeedPublisher
         sleep(5)
       rescue SocketError
         sleep(5)
+        puts "rescued! SocketError"
         next
       rescue Net::OpenTimeout
+        puts "rescued! OpenTimeout"
         sleep(5)
         next
       rescue Errno::ECONNRESET
+        puts "rescued! ECONNRESET"
         sleep(5)
         next
       end
@@ -53,9 +58,20 @@ class FeedPublisher
   # Publishes the new message in Feed.
   def publish_new_update(url, bot, db)
     key = @utilities.translate_url(url)
-    return if key.nil?
-
     var = "SELECT * FROM #{key}"
+    stm = db.prepare var
+    rs = stm.execute
+    rs.each do |chat_id|
+      begin
+        @bot_handler.title_message(chat_id.to_s, url, bot)
+        @bot_handler.item_message(chat_id.to_s, url, bot)
+      rescue Telegram::Bot::Exceptions::ResponseError
+        @database_handler.db_delete_blocked_user(@utilities.to_str(chat_id.to_s), db)
+        next
+      end
+    end
+
+    var = "SELECT * FROM #{@string_collection.keys[0]}"
     stm = db.prepare var
     rs = stm.execute
     rs.each do |chat_id|

@@ -8,7 +8,7 @@ require_relative 'feed_publisher.rb'
 
 # Constant is only used for comparison methods.
 ALL_FEED = 'https://www.th-owl.de/fb5/fb5.rss'.freeze
-TOKEN = '789284416:AAGlhE8pycY_7njGVwituHsSdU39vMAGIJ0'.freeze
+TOKEN = '938873098:AAEaJ1ojhfG421ycrbKNNwgXVfVPDALCq6U'.freeze
 
 # Main class for the FB5RSS bot.
 class FB5RSSBot
@@ -28,10 +28,10 @@ class FB5RSSBot
   end
 
   def start_bot_connection
-        Telegram::Bot::Client.run(TOKEN) do |bot|
-        @bot = bot
-        bot.listen(&method(:start_bot))
-      end
+    Telegram::Bot::Client.run(TOKEN) do |bot|
+      @bot = bot
+      bot.listen(&method(:start_bot))
+    end
   end
 
   # Start the bot.
