@@ -38,19 +38,22 @@ class FeedPublisher
           publish_new_update(url_update, bot, db)
           last_date = @rss_reader.read_item_date(ALL_FEED)
         end
-        sleep(5)
+        sleep(3)
       rescue SocketError
-        sleep(5)
+        sleep(1)
         puts "rescued! SocketError"
         next
       rescue Net::OpenTimeout
         puts "rescued! OpenTimeout"
-        sleep(5)
+        sleep(1)
         next
       rescue Errno::ECONNRESET
         puts "rescued! ECONNRESET"
-        sleep(5)
+        sleep(1)
         next
+      rescue OpenURI::HTTPError
+        puts ("rescued! HTTPError")
+        sleep(1)
       end
     end
   end
