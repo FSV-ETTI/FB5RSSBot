@@ -24,7 +24,7 @@ class FeedPublisher
       next if url == @string_collection.monitors[0]
       return url if date == @rss_reader.read_item_date(url)
     end
-    return @string_collection.monitors[0]
+    @string_collection.monitors[0]
   end
 
   # Checks if a new message is in feed. if it is, call publish method.
@@ -52,7 +52,7 @@ class FeedPublisher
         sleep(1)
         next
       rescue OpenURI::HTTPError
-        puts ("rescued! HTTPError")
+        puts "rescued! HTTPError"
         sleep(1)
       end
     end
@@ -61,20 +61,11 @@ class FeedPublisher
   # Publishes the new message in Feed.
   def publish_new_update(url, bot, db)
     key = @utilities.translate_url(url)
-    var = "SELECT * FROM #{key}"
-    stm = db.prepare var
-    rs = stm.execute
-    rs.each do |chat_id|
-      begin
-        @bot_handler.title_message(chat_id.to_s, url, bot)
-        @bot_handler.item_message(chat_id.to_s, url, bot)
-      rescue Telegram::Bot::Exceptions::ResponseError
-        @database_handler.db_delete_blocked_user(@utilities.to_str(chat_id.to_s), db)
-        next
-      end
-    end
+    publish_pre(url, bot, var = "SELECT * FROM #{key}") if key != ALL_FEED_KEY
+    publish_pre(url, bot, var = "SELECT * FROM #{@string_collection.keys[0]}")
+  end
 
-    var = "SELECT * FROM #{@string_collection.keys[0]}"
+  def publish_pre(url, bot, var)
     stm = db.prepare var
     rs = stm.execute
     rs.each do |chat_id|

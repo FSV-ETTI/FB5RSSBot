@@ -8,6 +8,7 @@ require_relative 'feed_publisher.rb'
 
 # Constant is only used for comparison methods.
 ALL_FEED = 'https://www.th-owl.de/fb5/fb5.rss'.freeze
+ALL_FEED_KEY = 'AlleNachrichten'
 TOKEN = '938873098:AAEaJ1ojhfG421ycrbKNNwgXVfVPDALCq6U'.freeze
 
 # Main class for the FB5RSS bot.
