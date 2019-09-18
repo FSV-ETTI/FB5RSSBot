@@ -6,7 +6,7 @@ class StringCollection
   # Keyboard buttons.
   def keyboard_string
     %w[
-        Alle\ Nachrichten\ |\ Abonniert
+        Alle\ Nachrichten\ •\ Abonniert
     ]
   end
 
