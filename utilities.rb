@@ -19,8 +19,8 @@ class Utilities
   def reduce_message(message)
     return if message.nil?
 
-    if message.include? '|'
-      pipe_index = message.index('|')
+    if message.include? '•'
+      pipe_index = message.index('•')
       message[0..pipe_index-2]
     else
       message
