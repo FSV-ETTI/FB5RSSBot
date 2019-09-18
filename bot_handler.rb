@@ -141,7 +141,7 @@ class BotHandler
     keyboard_strings = @string_collection.keyboard_strings
     keyboard_strings.each_with_index do |monitor, index|
       if subscribed?(monitor, message, db)
-        keyboard_strings[index] = keyboard_strings[index] + ' | Abonniert'
+        keyboard_strings[index] = keyboard_strings[index] + ' • Abonniert'
       end
     end
     Telegram::Bot::Types::ReplyKeyboardMarkup.new(

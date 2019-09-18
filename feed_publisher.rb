@@ -42,18 +42,19 @@ class FeedPublisher
       rescue SocketError
         sleep(1)
         puts "rescued! SocketError"
-        next
+        retry
       rescue Net::OpenTimeout
         puts "rescued! OpenTimeout"
         sleep(1)
-        next
+        retry
       rescue Errno::ECONNRESET
         puts "rescued! ECONNRESET"
         sleep(1)
-        next
+        retry
       rescue OpenURI::HTTPError
         puts "rescued! HTTPError"
         sleep(1)
+        retry
       end
     end
   end
@@ -70,7 +71,6 @@ class FeedPublisher
     rs = stm.execute
     rs.each do |chat_id|
       begin
-        @bot_handler.title_message(chat_id.to_s, url, bot)
         @bot_handler.item_message(chat_id.to_s, url, bot)
       rescue Telegram::Bot::Exceptions::ResponseError
         @database_handler.db_delete_blocked_user(@utilities.to_str(chat_id.to_s), db)
