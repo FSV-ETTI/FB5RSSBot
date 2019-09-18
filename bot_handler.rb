@@ -16,21 +16,24 @@ class BotHandler
 
   # Handle strings which are not found in keyboard. One can easily add more
   # commands here.
-  def handle_commands(message, bot, db, message_trigger)
-    if message_trigger && message.chat.id < 100_000_000
-      send_message(bot, message, db)
-      return false
-    end
+  def handle_commands(message, bot, db)
     case message.text
     when '/start'
       open_keyboard(bot, message)
     when '/stop'
       close_keyboard(bot, message)
-    when '/MessageAll'
-      return receive_message(bot, message) if message.chat.id < 100_000_000
+    when /\/MessageAll/
+      is_authorized?(bot, db, message)
     else
-      nil # NIL is deprecated.
+      nil
     end
+  end
+
+  def is_authorized?(bot, db, message)
+    return if message.chat.id > 100_000_000
+
+    text = message.text[12..-1]
+    send_global_message(bot, text, db)
   end
 
   # Confirmation message.
@@ -118,6 +121,15 @@ class BotHandler
       chat_ids = chat_ids.uniq
     end
     chat_ids
+  end
+
+  def send_global_message(bot, text, db)
+    user_list = select_users(db)
+    user_list.each do |user|
+      bot.api.send_message(
+        chat_id: user, text: text
+      )
+    end
   end
 
   def send_message(bot, message, db)

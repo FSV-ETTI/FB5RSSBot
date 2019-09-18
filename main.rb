@@ -14,7 +14,6 @@ TOKEN = '938873098:AAEaJ1ojhfG421ycrbKNNwgXVfVPDALCq6U'.freeze
 # Main class for the FB5RSS bot.
 class FB5RSSBot
   def initialize
-    @message_trigger = false
     @bot_handler = BotHandler.new
     @feed_publisher = FeedPublisher.new
     @database_handler = DatabaseHandler.new
@@ -22,6 +21,7 @@ class FB5RSSBot
     @database_handler.create_tables(@db)
     Thread.new(&method(:publish_updates))
     begin
+      sleep(1)
       start_bot_connection
     rescue Faraday::ConnectionFailed
       retry
@@ -43,7 +43,7 @@ class FB5RSSBot
 
   # Handle strings which are not in keyboard.
   def command_handler(message)
-    @message_trigger = @bot_handler.handle_commands(message, @bot, @db, @message_trigger)
+    @message_trigger = @bot_handler.handle_commands(message, @bot, @db)
   end
 
   # Update the database.
