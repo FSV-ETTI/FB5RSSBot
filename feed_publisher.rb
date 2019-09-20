@@ -62,11 +62,11 @@ class FeedPublisher
   # Publishes the new message in Feed.
   def publish_new_update(url, bot, db)
     key = @utilities.translate_url(url)
-    publish_pre(url, bot, var = "SELECT * FROM #{key}") if key != ALL_FEED_KEY
-    publish_pre(url, bot, var = "SELECT * FROM #{@string_collection.keys[0]}")
+    publish_pre(url, bot, db, var = "SELECT * FROM #{key}") if key != ALL_FEED_KEY
+    publish_pre(url, bot, db, var = "SELECT * FROM #{@string_collection.keys[0]}")
   end
 
-  def publish_pre(url, bot, var)
+  def publish_pre(url, bot, db, var)
     stm = db.prepare var
     rs = stm.execute
     rs.each do |chat_id|
