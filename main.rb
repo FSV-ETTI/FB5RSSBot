@@ -21,17 +21,12 @@ class FB5RSSBot
     @database_handler.create_tables(@db)
     Thread.new(&method(:publish_updates))
     begin
-      sleep(1)
-      start_bot_connection
+      Telegram::Bot::Client.run(TOKEN) do |bot|
+        @bot = bot
+        bot.listen(&method(:start_bot))
+      end
     rescue Faraday::ConnectionFailed
       retry
-    end
-  end
-
-  def start_bot_connection
-    Telegram::Bot::Client.run(TOKEN) do |bot|
-      @bot = bot
-      bot.listen(&method(:start_bot))
     end
   end
 
