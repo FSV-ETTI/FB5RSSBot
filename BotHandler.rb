@@ -4,7 +4,6 @@
 #------------------------------------------------------------------------#
 require 'telegram/bot'
 require_relative 'RSSReader.rb'
-require_relative 'Utilities.rb'
 #------------------------------------------------------------------------#
 
 class BotHandler
@@ -18,7 +17,7 @@ class BotHandler
       register_user(message, bot, db)
     when '/stop'
       delete_user(message, bot, db)
-    when /\/MessageAll/
+    when /\/Message/
       return unless is_admin?(message, bot, db)
 
       publish_message(message, bot, db)
@@ -46,11 +45,14 @@ class BotHandler
   end
 
   def publish_message(message, bot, db)
+    text = message.text[9..-1]
+    return unless text.is_a? String
+
     user_list = users(db)
 
     user_list.each do |user|
       bot.api.send_message(
-        chat_id: user, text: message.text.to_s
+        chat_id: user, text: text
       )
     end
   end
@@ -65,7 +67,8 @@ class BotHandler
     return if chat_id.nil?
 
     bot.api.send_message(chat_id: chat_id,
-                         text: @rss_reader.read_title)
+                         text: @rss_reader.read_title
+    )
   end
 
   def item_message(chat_id, bot)
@@ -73,9 +76,8 @@ class BotHandler
     return if chat_id.nil?
 
     bot.api.send_message(
-      chat_id: chat_id,
-      text: @rss_reader.read_item_title +
-          "\n" + @rss_reader.read_item_description)
+      chat_id: chat_id, text: @rss_reader.read_item_description
+    )
   end
 
   def users(db)

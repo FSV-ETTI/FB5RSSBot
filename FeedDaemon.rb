@@ -2,7 +2,6 @@
 # 2019
 
 #------------------------------------------------------------------------#
-require_relative 'Utilities.rb'
 require_relative 'RSSReader.rb'
 require_relative 'BotHandler'
 require_relative 'DatabaseHandler'

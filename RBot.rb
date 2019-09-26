@@ -10,7 +10,7 @@ require_relative 'DatabaseHandler'
 
 # Constants                                                              #
 ##########################################################################
-ADMIN = 'Chat_id'.freeze
+ADMIN = 10915579.freeze
 FEED = 'http://lorem-rss.herokuapp.com/feed?unit=second'.freeze
 TOKEN = '938873098:AAEaJ1ojhfG421ycrbKNNwgXVfVPDALCq6U'.freeze
 ##########################################################################

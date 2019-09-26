@@ -14,13 +14,6 @@ class RSSReader
     end
   end
 
-  def read_item_title
-    open(FEED) do |rss|
-      feed = RSS::Parser.parse(rss)
-      feed.items.first.title
-    end
-  end
-
   def read_item_description
     open(FEED) do |rss|
       feed = RSS::Parser.parse(rss)
