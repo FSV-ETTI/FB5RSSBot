@@ -28,7 +28,7 @@ class RSSReader
   def read_item_date
     open(FEED) do |rss|
       feed = RSS::Parser.parse(rss)
-      feed.channel.lastBuildDate.to_s
+      feed.items.first.pubDate.to_s
     end
   end
 end
