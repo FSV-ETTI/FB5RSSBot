@@ -22,6 +22,7 @@ class FeedDaemon
         if @rss_reader.compare_dates(@last_date)
           publish_message(bot, db)
           @last_date = @rss_reader.read_item_date
+          sleep(60)
         end
       rescue SocketError
         sleep(1)
