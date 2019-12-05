@@ -45,7 +45,7 @@ class BotHandler
   end
 
   def publish_message(message, bot, db)
-    text = message.text[9..-1]
+    text = message.text[12..-1]
     return unless text.is_a? String
 
     user_list = users(db)
